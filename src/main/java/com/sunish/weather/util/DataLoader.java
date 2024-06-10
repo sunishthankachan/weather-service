@@ -24,6 +24,11 @@ public class DataLoader implements ApplicationRunner {
         this.weatherRepository = weatherRepository;
     }
 
+    /**
+     * Method from ApplicationRunner interface that runs when the Spring Boot application starts
+     *
+     * @param args
+     */
     @Override
     public void run(ApplicationArguments args) {
         log.info("Loading initial weather data...");

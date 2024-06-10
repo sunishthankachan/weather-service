@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service class for managing weather data.
+ * It interacts with the WeatherRepository to perform CRUD operations.
+ */
 @Service
 @Slf4j
 public class WeatherService {
@@ -22,6 +26,12 @@ public class WeatherService {
         this.weatherRepository = weatherRepository;
     }
 
+    /**
+     * Retrieves weather data for all available cities.
+     *
+     * @return a list of weather data for all cities.
+     * @throws CityListEmptyException if the city list is empty.
+     */
     public List<Weather> getWeatherOfAllCities() {
         List<Weather> allWeather = weatherRepository.findAll();
         if (allWeather.isEmpty()) {
@@ -31,6 +41,13 @@ public class WeatherService {
         return allWeather;
     }
 
+    /**
+     * Retrieves weather data for a specified city.
+     *
+     * @param city the name of the city.
+     * @return the weather data for the specified city.
+     * @throws CityNotFoundException if the city is not found.
+     */
     public Weather getWeather(String city) {
         return weatherRepository.findById(city).orElseThrow(() -> {
             log.error("City not found: {}", city);
@@ -38,6 +55,13 @@ public class WeatherService {
         });
     }
 
+    /**
+     * Adds new weather data for a city.
+     *
+     * @param newWeather the weather data to be added.
+     * @return the added weather data.
+     * @throws InvalidWeatherOperationException if the weather data already exists for the city.
+     */
     public Weather addWeather(Weather newWeather) {
         if (weatherRepository.existsById(newWeather.getCity())) {
             log.error("Weather data already exists for city: {}", newWeather.getCity());
@@ -48,6 +72,14 @@ public class WeatherService {
         return newWeather;
     }
 
+    /**
+     * Updates weather data for a specified city.
+     *
+     * @param city the name of the city.
+     * @param updatedWeather the updated weather data.
+     * @return the updated weather data.
+     * @throws CityNotFoundException if the city is not found.
+     */
     public Weather updateWeather(String city, Weather updatedWeather) {
         Weather existingWeather = weatherRepository.findById(city).orElseThrow(() -> {
             log.error("City not found: {}", city);
@@ -59,6 +91,12 @@ public class WeatherService {
         return updatedWeather;
     }
 
+    /**
+     * Deletes weather data for a specified city.
+     *
+     * @param city the name of the city.
+     * @throws CityNotFoundException if the city is not found.
+     */
     public void deleteWeather(String city) {
         if (!weatherRepository.existsById(city)) {
             log.error("City not found: {}", city);

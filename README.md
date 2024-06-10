@@ -85,3 +85,23 @@ logging.pattern.file=%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %m
 springdoc.api-docs.enabled=true
 springdoc.api-docs.path=/api-docs
 
+## H2 Database Configuration
+
+- `spring.datasource.url`: JDBC URL for the H2 in-memory database.
+- `spring.datasource.driverClassName`: JDBC driver class for H2.
+- `spring.datasource.username`: Username for the H2 database.
+- `spring.datasource.password`: Password for the H2 database.
+- `spring.jpa.database-platform`: Hibernate dialect for H2.
+- `spring.h2.console.enabled`: Enable H2 console.
+- `spring.h2.console.path`: Path for accessing the H2 console.
+
+
+### JPA Configuration
+
+- `spring.jpa.hibernate.ddl-auto`: Specifies the DDL generation strategy.
+    - **Example**: `update`
+
+### Actuator Configuration
+
+- `management.endpoints.web.exposure.include`: Exposes all Actuator endpoints via the web interface.
+    - **Example**: `*`
