@@ -8,6 +8,7 @@ import com.sunish.weather.exception.ErrorResponse;
 import com.sunish.weather.exception.InvalidWeatherOperationException;
 import com.sunish.weather.service.WeatherService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,8 +27,7 @@ import static org.mockito.Mockito.*;
  * This class defines the unit tests for the WeatherController class.
  * It tests various functionalities of the WeatherController class using Mockito for mocking the WeatherService.
  */
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
-@SpringBootTest(classes = WeatherServiceApplication.class)
+@ExtendWith(MockitoExtension.class)
 class WeatherControllerTest {
 
     @Mock
@@ -36,16 +36,17 @@ class WeatherControllerTest {
     @InjectMocks
     private WeatherController weatherController;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
+//    @BeforeEach
+//    void setUp() {
+//        MockitoAnnotations.initMocks(this);
+//    }
 
     /**
      * Test case to verify the behavior of getWeather method in WeatherController class.
      * It verifies that the controller returns correct weather information for a specific city.
      */
     @Test
+    @DisplayName("Test Get Weather - Success")
     void testGetWeather() {
         Weather mockWeather = new Weather("Auckland", "20.5", "C", "2024-06-12", "Sunny");
         when(weatherService.getWeather("Auckland")).thenReturn(mockWeather);
@@ -64,6 +65,7 @@ class WeatherControllerTest {
      * It verifies that the controller returns appropriate error response when city is not found.
      */
     @Test
+    @DisplayName("Test Get Weather - City Not Found")
     void testGetWeatherNotFound() {
         String city = "UnknownCity";
         when(weatherService.getWeather(city)).thenThrow(new CityNotFoundException("City not found: " + city));
